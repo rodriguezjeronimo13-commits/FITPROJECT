@@ -81,6 +81,14 @@ function presentFood(food, favorites) {
   return item;
 }
 
+app.get('/', (req, res) => {
+  res.json({
+    ok: true,
+    nombre: 'FitProject',
+    mensaje: 'La API está en línea. Las rutas empiezan en /api.',
+  });
+});
+
 app.get('/api/health', wrap(async (req, res) => {
   await query('SELECT 1');
   res.json({ ok: true });
