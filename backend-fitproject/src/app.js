@@ -14,8 +14,21 @@ const SEDES = ['Cafetería Central', 'Cafetería Norte'];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FECHA = /^\d{4}-\d{2}-\d{2}$/;
 
+const allowedOrigins = new Set([
+  'http://localhost:5173',
+  'https://fitproject-n99s.vercel.app',
+  'http://fitproject-n99s.vercel.app',
+  ...(process.env.CORS_ORIGIN || '').split(',').map((item) => item.trim()).filter(Boolean),
+]);
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : true,
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) {
+      callback(null, true);
+      return;
+    }
+    callback(null, false);
+  },
 }));
 app.use(express.json({ limit: '1mb' }));
 
