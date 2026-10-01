@@ -1,12 +1,13 @@
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA({
+  plugins: [react(), tailwindcss(), VitePWA({
     registerType: 'autoUpdate',
-    injectRegister: false,
+    injectRegister: 'auto',
 
     pwaAssets: {
       disabled: false,
@@ -14,10 +15,16 @@ export default defineConfig({
     },
 
     manifest: {
-      name: 'frontend-fitproject',
-      short_name: 'frontend',
-      description: 'trata de la mejora de estilo de vida y alimentacion ',
-      theme_color: '#ffffff',
+      name: 'FitProject',
+      short_name: 'FitProject',
+      description: 'Menú del campus y seguimiento de alimentación para estudiantes.',
+      theme_color: '#10241f',
+      background_color: '#f4f7f2',
+      icons: [
+        { src: '/images/emblem.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+      ],
+      display: 'standalone',
+      lang: 'es',
     },
 
     workbox: {
